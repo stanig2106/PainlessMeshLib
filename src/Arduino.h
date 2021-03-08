@@ -4,8 +4,31 @@
 #ifndef ARDUINO_WRAP_H
 #define ARDUINO_WRAP_H
 
+
+#if defined(_WIN32)
+#include <chrono>
+#include <thread>
+#include <WinSock2.h>
+
+inline int gettimeofday(struct timeval* tp, struct timezone* tzp) {
+  namespace sc = std::chrono;
+  sc::system_clock::duration d = sc::system_clock::now().time_since_epoch();
+  sc::seconds s = sc::duration_cast<sc::seconds>(d);
+  tp->tv_sec = s.count();
+  tp->tv_usec = sc::duration_cast<sc::microseconds>(d - s).count();
+
+  return 0;
+}
+
+inline void usleep(int usec) {
+  std::this_thread::sleep_for(std::chrono::microseconds(usec));
+}
+#else
+
 #include <sys/time.h>
 #include <unistd.h>
+
+#endif
 
 #define F(string_literal) string_literal
 #define ARDUINO_ARCH_ESP8266

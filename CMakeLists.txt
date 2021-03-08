@@ -5,12 +5,9 @@ project (painlessMeshBoost)
 # Find python and Boost - both are required dependencies
 #find_package(PythonLibs 2.7 REQUIRED)
 #find_package (Python3 COMPONENTS Interpreter Development)
-find_package (Python3 COMPONENTS Development)
 
-find_package(Boost COMPONENTS python REQUIRED)
-#find_package(Python COMPONENTS Interpreter Development)
-# Without this, any build libraries automatically have names "lib{x}.so"
-set(CMAKE_SHARED_MODULE_PREFIX "")
+find_package(PythonLibs 3 REQUIRED)
+find_package (Python3 COMPONENTS Interpreter  Development REQUIRED)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,7 +18,12 @@ SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD ON)
 
 #FIND_PACKAGE(Boost 1.42.0 REQUIRED COMPONENTS filesystem system thread regex program_options python)
-FIND_PACKAGE(Boost REQUIRED COMPONENTS filesystem system thread regex program_options python)
+FIND_PACKAGE(Boost REQUIRED COMPONENTS python filesystem system thread regex program_options python)
+#find_package(Python COMPONENTS Interpreter Development)
+# Without this, any build libraries automatically have names "lib{x}.so"
+
+set(CMAKE_SHARED_MODULE_PREFIX "")
+
 IF(Boost_FOUND)
   INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
   LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
@@ -31,6 +33,7 @@ message("Python_VERSION:${Python_VERSION}")
 message("Python_Development_FOUND:${Python_Development_FOUND}")
 message("Python_LIBRARIES:${Python_LIBRARIES}")
 message("Python_include_dirs:${PYTHON_INCLUDE_DIRS}")
+message("Boost_LIBRARIES:${Boost_LIBRARIES}")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 # Add a shared module - modules are intended to be imported at runtime.
