@@ -69,7 +69,21 @@ public:
     void onReceived( PyObject *cb ) {
       auto pcb = borrow(cb);
       mesh.onReceive([pcb](uint32_t nodeId, std::string& msg) {
-	  boost::python::call<void>(pcb.ptr(), nodeId, msg);
+        for (size_t i = 0, z = msg.size(); i < z; i++) {
+          auto c = msg[i];
+          switch (c) {
+              case '\n': 
+              case '\t':
+              case '\r':
+                break;
+            default:
+                if (c < 32 || c > 127) {
+                    msg[i]  = '~';
+                }
+          }
+        }
+
+	    boost::python::call<void>(pcb.ptr(), nodeId, msg);
 	  }
 	);
     }
