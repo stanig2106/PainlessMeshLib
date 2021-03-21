@@ -10,6 +10,8 @@
 WiFiClass WiFi;
 ESPClass ESP;
 
+#include "painlessmesh/protocol.hpp"
+#include "painlessmesh/mesh.hpp"
 #include "painlessMesh.h"
 #include "painlessMeshConnection.h"
 #include "plugin/performance.hpp"
@@ -99,7 +101,7 @@ int main(int ac, char* av[]) {
     boost::asio::io_service io_service;
     painlessMesh mesh;
     Log.setLogLevel(ERROR);
-    mesh.init(&scheduler, nodeId, port);
+    mesh.init(&scheduler, nodeId);
     std::shared_ptr<AsyncServer> pServer;
     if (vm.count("server") || !vm.count("client")) {
       pServer = std::make_shared<AsyncServer>(io_service, port);

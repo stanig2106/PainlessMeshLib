@@ -42,6 +42,9 @@ inline void yield() {}
 #ifndef _PAINLESS_MESH_CONFIGURATION_HPP_
 #define _PAINLESS_MESH_CONFIGURATION_HPP_
 
+#define MIN_FREE_MEMORY 0
+#define MAX_MESSAGE_QUEUE 50
+
 #define _TASK_PRIORITY  // Support for layered scheduling priority
 #define _TASK_STD_FUNCTION
 
@@ -65,27 +68,24 @@ typedef std::string TSTRING;
 #define MAX_CONN 4
 #endif  // DEBUG
 
-#include "fake_serial.hpp"
 #include "boost/asynctcp.hpp"
-
+#include "fake_serial.hpp"
 
 typedef enum {
-    WL_NO_SHIELD        = 255,   // for compatibility with WiFi Shield library
-    WL_IDLE_STATUS      = 0,
-    WL_NO_SSID_AVAIL    = 1,
-    WL_SCAN_COMPLETED   = 2,
-    WL_CONNECTED        = 3,
-    WL_CONNECT_FAILED   = 4,
-    WL_CONNECTION_LOST  = 5,
-    WL_DISCONNECTED     = 6
+  WL_NO_SHIELD = 255,  // for compatibility with WiFi Shield library
+  WL_IDLE_STATUS = 0,
+  WL_NO_SSID_AVAIL = 1,
+  WL_SCAN_COMPLETED = 2,
+  WL_CONNECTED = 3,
+  WL_CONNECT_FAILED = 4,
+  WL_CONNECTION_LOST = 5,
+  WL_DISCONNECTED = 6
 } wl_status_t;
 
 class WiFiClass {
  public:
   void disconnect() {}
-  auto status() {
-    return WL_CONNECTED;
-  }
+  auto status() { return WL_CONNECTED; }
 };
 
 class ESPClass {
