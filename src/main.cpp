@@ -12,9 +12,14 @@ ESPClass ESP;
 
 #include "painlessmesh/protocol.hpp"
 #include "painlessmesh/mesh.hpp"
+
+// TODO Should not be needed anymore in versions after 1.4.9 
+using namespace painlessmesh;
+
 #include "painlessMesh.h"
-#include "painlessMeshConnection.h"
+#include "painlessmesh/connection.hpp"
 #include "plugin/performance.hpp"
+
 
 painlessmesh::logger::LogClass Log;
 
@@ -105,13 +110,13 @@ int main(int ac, char* av[]) {
     std::shared_ptr<AsyncServer> pServer;
     if (vm.count("server") || !vm.count("client")) {
       pServer = std::make_shared<AsyncServer>(io_service, port);
-      painlessmesh::tcp::initServer<MeshConnection, painlessMesh>(*pServer,
+      painlessmesh::tcp::initServer<painlessmesh::Connection, painlessMesh>(*pServer,
                                                                   mesh);
     }
 
     if (vm.count("client")) {
       auto pClient = new AsyncClient(io_service);
-      painlessmesh::tcp::connect<MeshConnection, painlessMesh>(
+      painlessmesh::tcp::connect<painlessmesh::Connection, painlessMesh>(
           (*pClient), boost::asio::ip::address::from_string(ip), port, mesh);
     }
 
