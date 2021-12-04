@@ -5,3 +5,11 @@ bin/*
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
+
+.cache/
+.cmake/
+.ninja_deps
+.ninja_log
+build.ninja
+
+
