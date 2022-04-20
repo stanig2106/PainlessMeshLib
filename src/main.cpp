@@ -135,7 +135,7 @@ int main(int ac, char* av[]) {
                   << mesh.getNodeTime() << ",\"time\":\"" << timeToString()
                   << "\""
                   << ",\"nodeId\":" << nodeId
-                  << ", \"layout\":" << mesh.asNodeTree().toString() << "}"
+                  //<< ", \"layout\":" << mesh.asNodeTree().toString() << "}"
                   << std::endl;
       });
     }
@@ -146,7 +146,7 @@ int main(int ac, char* av[]) {
                   << mesh.getNodeTime() << ",\"time\":\"" << timeToString()
                   << "\""
                   << ",\"nodeId\":" << nodeId
-                  << ", \"layout\":" << mesh.asNodeTree().toString() << "}"
+                  //<< ", \"layout\":" << mesh.asNodeTree().toString() << "}"
                   << std::endl;
       });
     }
@@ -155,7 +155,7 @@ int main(int ac, char* av[]) {
       mesh.onChangedConnections([&mesh]() {
         std::cout << "{\"event\":\"change\",\"nodeTime\":" << mesh.getNodeTime()
                   << ",\"time\":\"" << timeToString() << "\""
-                  << ", \"layout\":" << mesh.asNodeTree().toString() << "}"
+                  //<< ", \"layout\":" << mesh.asNodeTree().toString() << "}"
                   << std::endl;
       });
     }
