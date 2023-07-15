@@ -1,7 +1,9 @@
 #ifndef _PMBOOST_OTA_HPP_
 #define _PMBOOST_OTA_HPP_
 
+#include <boost/date_time/posix_time/conversion.hpp>
 #include <boost/uuid/detail/md5.hpp>
+#include <fstream>
 using boost::uuids::detail::md5;
 
 std::vector<std::string> split(const std::string& s, char delimiter) {
